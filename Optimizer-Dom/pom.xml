@@ -10,6 +10,15 @@
   <name>Optimizer-Dom</name>
   <url>http://maven.apache.org</url>
 
+    <repositories>
+        <repository>
+        <id>perfectomobile</id>
+        <name>Perfecto mobile</name>
+        <url>http://repository-perfectomobile.forge.cloudbees.com/public</url>
+        </repository>
+    </repositories>
+
+
   <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
