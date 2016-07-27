@@ -6,8 +6,8 @@ import com.perfecto.reportium.model.Project;
 import com.perfecto.reportium.test.TestContext;
 import com.perfecto.reportium.test.result.TestResultFactory;
 
-
 import org.openqa.selenium.By;
+import org.openqa.selenium.By.ByXPath;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -23,6 +23,7 @@ import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,13 +31,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Optimizer_Main {
 
-    RemoteWebDriver driver;
+    static RemoteWebDriver driver;
     ReportiumClient reportiumClient;
 
-    //TODO: Set your Perfecto Lab user, password and host.
-    //TODO: Set your ESPN email and password.
-//    String ESPN_EMAIL           = System.getProperty("np.ESPNuser", "My_Email");
-//    String ESPN_PASSWORD        = System.getProperty("np.ESPNpassword", "My_Pass");
     String PERFECTO_HOST        = System.getProperty("np.testHost", "branchtest.perfectomobile.com");
     String PERFECTO_USER        = System.getProperty("np.testUsername", "test_automation@gmail.com");
     String PERFECTO_PASSWORD    = System.getProperty("np.testPassword", "Test_automation");
@@ -88,51 +85,45 @@ public class Optimizer_Main {
             driver.get(url);
 //            open the geography dialog
             driver.findElement(By.xpath(OptimizerPageObject.selectCountry)).click();
-//            reportiumClient.testStep("Validate text point"); //TEST STEP - Validate text appear.
-//            switchToContext(driver, "VISUAL");
-//            driver.findElementByLinkText("Select Locations");
-//            switchToContext(driver, "NATIVE");
+            reportiumClient.testStep("Validate text point"); //TEST STEP - Validate text appear.
+            switchToContext(driver, "VISUAL");
+            driver.findElementByLinkText("Select Locations");
+            switchToContext(driver, "WEBVIEW");
             reportiumClient.testStep("Select country"); //TEST STEP - select country
             selectCountry("Germany");
 //            close dialog
             driver.findElement(By.xpath(OptimizerPageObject.closeButton)).click();
 //            check the country that was selected appears in main page
             isCountryDisplayed("Germany");
-//            reportiumClient.testStep("Validate text point-Germany");  
-//            switchToContext(driver, "VISUAL");
-//            driver.findElementByLinkText("Germany");
-//            switchToContext(driver, "NATIVE");
+            reportiumClient.testStep("Validate text point-Germany");  
+            switchToContext(driver, "VISUAL");
+            driver.findElementByLinkText("Germany");
+            switchToContext(driver, "WEBVIEW");
             reportiumClient.testStep("Select device type"); //select device type
             SelectDeviceType("Tablet");
             reportiumClient.testStep("Select device OS"); //select device OS
             SelectOS("iOS");
             reportiumClient.testStep("Customize preference"); //customize preference
             driver.findElementByXPath(OptimizerPageObject.customizePref).click();
-            selectDevices(0, "AP");
+            selectDevice(1,"6S");
             chooseDevice("6S","Apple iPhone 6S");
-            driver.findElement(By.xpath(OptimizerPageObject.CustomizeClose)).click();
+            WebElement BtnClose = driver.findElement(By.xpath(OptimizerPageObject.CustomizeClose));
+            BtnClose.click();//close customize pref dialog
+//            reportiumClient.testStep("heroes list"); //heroes
+//            HeroesList();
             reportiumClient.testStep("'Full Picture' button appears on screen"); //customize preference
+            WebElement FullRBtn = driver.findElementByXPath(OptimizerPageObject.FullResultBtn);
             isElementVisible(".//*[@id='showFullResults']");
-//          reportiumClient.testStep("Validate text point-BTN full Picture appears on screen");  
-//          switchToContext(driver, "VISUAL");
-//          driver.findElementByLinkText("See the full Picture");
-//          switchToContext(driver, "NATIVE");
+            FullRBtn.click();
+            reportiumClient.testStep("Test Coverage Optimizer full report page"); //new page opened with table
+            String TableTitle = driver.findElement(By.xpath(OptimizerPageObject.FullResultPage)).getText();
+            Assert.assertEquals(TableTitle, "TEST COVERAGE OPTIMIZER");
+          
+           
             
-//            driver.findElement(By.xpath(PageObjects.menuNBA)).click();
-//
-//            reportiumClient.testStep("Validate text point"); //TEST STEP - Validate text appear.
-//            Map<String, Object> textToFind = new HashMap<String, Object>();
-//            textToFind.put("content", "SCORES");
-//            String TextFindStatus =(String) driver.executeScript("mobile:text:find", textToFind);
-//            //Assertion - Validate that "Scores" appear in page.
-//            Assert.assertEquals(TextFindStatus , "true");
-//
-//            reportiumClient.testStep("Search for a team"); //TEST STEP - Search team.
-//            driver.findElement(By.xpath(PageObjects.NBATeams)).click();
-//            driver.findElement(By.xpath(PageObjects.SelectLakers)).click();
-//
+            
 //            //END TEST - Success
-//            reportiumClient.testStop(TestResultFactory.createSuccess());
+            reportiumClient.testStop(TestResultFactory.createSuccess());
 
         }catch (Throwable t){
             t.printStackTrace();
@@ -192,49 +183,17 @@ public class Optimizer_Main {
 		return selectOS.isSelected();
 	}
 	
-	public List<WebElement> selectDevices(int row, String device){
-		List<WebElement> selectDevices = driver.findElementsByXPath("//pm-choice");
-		selectDevices.size();
-		System.out.println(selectDevices.size());
-		Assert.assertEquals(selectDevices.size(), 5);
-		selectDevices.get(row).click();
-		String selected = inputBox(device);
-		return selectDevices;
-		
-	}
+	public  void selectDevice(int row, String device){
+		WebElement container = driver.findElementByXPath("//pm-choice["+row+"]");
+		WebElement selectDevice = container.findElement(By.xpath(".//*[@class='select2-selection__placeholder']"));
+		selectDevice.click();
+		WebElement insertDevice = container.findElement(By.xpath("//*[text()='Select an option...']"));
+		insertDevice.sendKeys(device);
 	
-	public String inputBox(String string){
-		
-		WebElement search = driver.findElementByXPath("//*[@class='select2-selection__placeholder']");
-		String[] split = string.split("");
-		for (String string2 : split) {
-			search.sendKeys(string2);
-		}
-	
-		List<WebElement> dropDownBox = driver.findElementsByXPath("//*[contains(@class,'select2-results')]/li"); 
 
-	try{
-		if(dropDownBox.size()>2){
-			System.out.println(dropDownBox.size());
-		}
-		System.out.println(string);
-	}	 catch(Exception e){
-		System.out.println("dropbox did not load");
-		e.printStackTrace();
 	}
-			for (int i = 0; i < dropDownBox.size(); i++) {
-				System.out.println(dropDownBox.get(i).getText());
-				String name = dropDownBox.get(i).getText();
-				
-				if (org.apache.commons.lang3.StringUtils.containsIgnoreCase(name, string)) {
-					System.out.print(name);
-				} else {
-					System.out.println("the "+ name +" is not compatible and does not contain the " + string);
-				} }
-				
-		return string;
-		
-	}
+	
+	
 	
 	public String chooseDevice(String clickDevice, String expected) {
 		WebElement chooseDevice = driver.findElement(By.xpath("//*[@class='select2-results']//*[contains(text(),'"+clickDevice +"')]"));
@@ -265,32 +224,30 @@ public class Optimizer_Main {
 
 	 }
 
-//	public void test2(){
-//        try{
-//            //NEW TEST
-//            reportiumClient.testStart("ESPN login" , new TestContext("ESPN" , "Selenium" , "Login"));//Add tags by your choice
-//
-//            reportiumClient.testStep("Navigate to ESPN login page"); //TEST STEP - Click login
-//            driver.findElement(By.xpath(PageObjects.LoginButton)).click();
-//
-//            reportiumClient.testStep("Insert login info and press login button"); //TEST STEP - login session
-//            driver.switchTo().frame("disneyid-iframe"); // Switch to login frame
-//            driver.findElement(By.xpath(PageObjects.Email)).sendKeys(this.ESPN_EMAIL);
-//            driver.findElement(By.xpath(PageObjects.password)).sendKeys(this.ESPN_PASSWORD);
-//            driver.findElement(By.xpath(PageObjects.submit)).click();
-//
-//            reportiumClient.testStep("LogOut"); //TEST STEP - logout session
-//            driver.findElement(By.xpath(PageObjects.userPlace)).click();
-//            driver.findElement(By.xpath(PageObjects.logOut)).click();
-
-//            //END TEST - Success
-//            reportiumClient.testStop(TestResultFactory.createSuccess());
-//        }catch (Throwable t){
-//            t.printStackTrace();
-//            reportiumClient.testStop(TestResultFactory.createFailure(t.getMessage() , t));
-//            Assert.fail(t.getMessage());
-//        }
-//    }
+ public List<String> HeroesList(){
+	 List<WebElement> heroes = driver.findElements(By.xpath(OptimizerPageObject.Heroes));
+		List<String> heroesList = new ArrayList<String>();
+		for(int i=1; i < (heroes.size()+1); i++) {
+		  String deviceName = driver.findElementByXPath(".//*[@id='pmHeroes']//*[@class='pm-hero ng-scope']/*[text()='"+i+"']/following-sibling::label").getText();
+		    heroesList.add(deviceName);
+		    System.out.println(deviceName);
+			}
+		return heroesList;
+	}
+ 
+ public static List<String> FullReportlist(){
+		List<String> fullReportlist = new ArrayList<String>();
+		for(int i=0; i < 5; i++) {
+		    String deviceName =driver.findElementByXPath(".//*[contains(@id, '-"+i+"-uiGrid-0005-cell')]/label").getText();
+		    fullReportlist.add(deviceName);
+		    System.out.println(deviceName);
+		    Reporter.log(deviceName);
+	
+			}
+		return fullReportlist;
+		
+		
+	}
 
 
     @SuppressWarnings("Since15")
