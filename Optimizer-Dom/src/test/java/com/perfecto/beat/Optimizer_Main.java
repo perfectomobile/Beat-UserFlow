@@ -1,4 +1,4 @@
-package com.perfecto.Beat;
+package com.perfecto.beat;
 import com.perfecto.reportium.client.ReportiumClient;
 import com.perfecto.reportium.client.ReportiumClientFactory;
 import com.perfecto.reportium.model.PerfectoExecutionContext;

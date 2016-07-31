@@ -1,4 +1,4 @@
-package com.perfecto.Beat;
+package com.perfecto.beat;
 
 
 public class OptimizerPageObject {
