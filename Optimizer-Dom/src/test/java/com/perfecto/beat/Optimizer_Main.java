@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Optimizer_Main {
 
-    static RemoteWebDriver driver;
+    RemoteWebDriver  driver;
     ReportiumClient reportiumClient;
 
     String PERFECTO_HOST        = System.getProperty("np.testHost", "branchtest.perfectomobile.com");
@@ -53,7 +53,7 @@ public class Optimizer_Main {
 
         driver = new RemoteWebDriver(new URL("https://" + PERFECTO_HOST + "/nexperience/perfectomobile/wd/hub") , capabilities);
         driver.manage().timeouts().implicitlyWait(15 , TimeUnit.SECONDS);
-        
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         //Create Reportium client.
         reportiumClient = new ReportiumClientFactory().createPerfectoReportiumClient(
                         new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
@@ -66,14 +66,14 @@ public class Optimizer_Main {
     //Control the number of times each one of the tests runs.
     //Each times generates a new report for each test.
     //TODO: set the number of times to run the test
-    @Test(invocationCount = 1)
-    public void testGroup(){
-        test();
-//        test2();
-    }
-
-    public void test(){
+    @Test
+       public void test(){
         try{
+        	System.out.println("-----------------------------------------");
+        	System.err.println(Thread.currentThread().getId());
+        	System.out.println("-----------------------------------------");
+        	//driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    		//driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
             //START TEST
             reportiumClient.testStart("Optimizer" , new TestContext("Some tag" , "Optimizer")); //Add tags by your choice. 
             reportiumClient.testStep("Navigate to Beat-Optimizer site"); //TEST STEP - Open site and navigate.
@@ -84,7 +84,7 @@ public class Optimizer_Main {
 //          ("document.cookie=PM_MARKETO=123");
             driver.get(url);
 //            open the geography dialog
-            driver.findElement(By.xpath(OptimizerPageObject.selectCountry)).click();
+            driver.findElementByXPath(OptimizerPageObject.selectCountry).click();
             reportiumClient.testStep("Validate text point"); //TEST STEP - Validate text appear.
             switchToContext(driver, "VISUAL");
             driver.findElementByLinkText("Select Locations");
@@ -234,23 +234,22 @@ public class Optimizer_Main {
 			}
 		return heroesList;
 	}
- 
- public static List<String> FullReportlist(){
-		List<String> fullReportlist = new ArrayList<String>();
-		for(int i=0; i < 5; i++) {
-		    String deviceName =driver.findElementByXPath(".//*[contains(@id, '-"+i+"-uiGrid-0005-cell')]/label").getText();
-		    fullReportlist.add(deviceName);
-		    System.out.println(deviceName);
-		    Reporter.log(deviceName);
-	
-			}
-		return fullReportlist;
-		
-		
-	}
+// 
+// public static List<String> FullReportlist(){
+//		List<String> fullReportlist = new ArrayList<String>();
+//		for(int i=0; i < 5; i++) {
+//		    String deviceName =driver.findElementByXPath(".//*[contains(@id, '-"+i+"-uiGrid-0005-cell')]/label").getText();
+//		    fullReportlist.add(deviceName);
+//		    System.out.println(deviceName);
+//		    Reporter.log(deviceName);
+//	
+//			}
+//		return fullReportlist;
+//		
+//		
+//	}
 
 
-    @SuppressWarnings("Since15")
     @AfterTest
     public void afterMethod(){
         try{
