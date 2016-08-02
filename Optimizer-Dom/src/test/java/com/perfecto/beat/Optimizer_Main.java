@@ -75,10 +75,9 @@ public class Optimizer_Main {
         	System.out.println("-----------------------------------------");
         	System.err.println(Thread.currentThread().getId());
         	System.out.println("-----------------------------------------");
-        	//driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    		//driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
             //START TEST
-            reportiumClient.testStart("Optimizer" , new TestContext("Some tag" , "Optimizer")); //Add tags by your choice. 
+        	String device = driver.getCapabilities().getCapability("platformName").toString();
+            reportiumClient.testStart("Optimizer" , new TestContext("Some tag" , "Optimizer-"+ device)); //Add tags by your choice. 
             reportiumClient.testStep("Navigate to Beat-Optimizer site"); //TEST STEP - Open site and navigate.
          
             driver.get(url);
@@ -95,6 +94,8 @@ public class Optimizer_Main {
             switchToContext(driver, "VISUAL");
             driver.findElementByLinkText("Select Locations");
             switchToContext(driver, "WEBVIEW");
+            }else {
+            	visualOnWeb(driver ,"Select Locations");
             }
             reportiumClient.testStep("Select country"); //TEST STEP - select country
             selectCountry("Germany");
@@ -102,13 +103,13 @@ public class Optimizer_Main {
             driver.findElement(By.xpath(OptimizerPageObject.closeButton)).click();
 //            check the country that was selected appears in main page
             isCountryDisplayed("Germany");
-//            String platform = (String) driver.getCapabilities().getCapability("platformName").toString();
-//            System.out.println(platform);
             if(!platform.equalsIgnoreCase("Windows")){
             reportiumClient.testStep("Validate text point-Germany");  
             switchToContext(driver, "VISUAL");
             driver.findElementByLinkText("Germany");
             switchToContext(driver, "WEBVIEW");
+            }else {
+            	visualOnWeb(driver, "Germany");
             }
             reportiumClient.testStep("Select device type"); //select device type
             SelectDeviceType("Tablet");
@@ -152,6 +153,13 @@ public class Optimizer_Main {
 		params.put("name", context);
 		executeMethod.execute(DriverCommand.SWITCH_TO_CONTEXT, params);
 	}
+    public static void visualOnWeb (RemoteWebDriver driver, String string){
+    	 Map<String, Object> params = new HashMap<String, Object>();
+         	params.clear();
+			params.put("content", string);
+			params.put("timeout", "30");
+			driver.executeScript("mobile:text:find", params);
+    }
     public void selectCountry(String location){
 //    	the xpath here defines the input with the specific sibling location
     	String checkBoxCountry = "//*[@type='checkbox']/following-sibling::label[text()=";
