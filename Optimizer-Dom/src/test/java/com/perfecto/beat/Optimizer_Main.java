@@ -69,7 +69,7 @@ public class Optimizer_Main {
     //Control the number of times each one of the tests runs.
     //Each times generates a new report for each test.
     //TODO: set the number of times to run the test
-    @Test
+    @Test(invocationCount = 5, successPercentage = 20)
        public void test(){
         try{
         	System.out.println("-----------------------------------------");
