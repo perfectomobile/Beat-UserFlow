@@ -7,6 +7,8 @@
         <parameter name="model" value= "" />
         <parameter name="browserName" value="mobileOS" />
         <parameter name="location" value="" />
+        <parameter name="platformVersion" value="" />
+        <parameter name="browserVersion" value="" />
         <classes>
             <class name="com.perfecto.beat.Optimizer_Main" />
         </classes>
@@ -17,9 +19,22 @@
         <parameter name="model" value= "" />
         <parameter name="browserName" value="mobileOS" />
         <parameter name="location" value="" />
+        <parameter name="platformVersion" value="" />
+        <parameter name="browserVersion" value="" />
         <classes>
             <class name="com.perfecto.beat.Optimizer_Main" />
         </classes>
     </test>
+    	<test name="Test Windows 7 chrome 50">
+		<parameter name="platformName" value="Windows" />
+		<parameter name="platformVersion" value="7" />
+		<parameter name="browserName" value="Chrome" />
+		<parameter name="browserVersion" value="48" />
+		 <parameter name="location" value="" />
+		   <parameter name="model" value= "" />
+		<classes>
+			<class name="com.perfecto.beat.Optimizer_Main" />
+		</classes>
+	</test> 
     
 </suite>

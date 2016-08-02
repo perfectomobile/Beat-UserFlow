@@ -18,6 +18,7 @@ import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -39,9 +40,9 @@ public class Optimizer_Main {
     String PERFECTO_PASSWORD    = System.getProperty("np.testPassword", "Test_automation");
     private String url = "http://optimizer-beat-test.perfectomobile.com/";
     //TODO: Insert your device capabilities at testng.XML file.
-    @Parameters({"platformName" , "model" , "browserName" , "location"})
+    @Parameters({"platformName" , "model" , "browserName" , "location","platformVersion","browserVersion"})
     @BeforeTest
-    public void beforMethod(String platformName, String model, String browserName, String location) throws MalformedURLException {
+    public void beforMethod(String platformName, String model, String browserName, String location, @Optional String platformVersion, @Optional String browserVersion) throws MalformedURLException {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("user" , PERFECTO_USER);
@@ -50,7 +51,9 @@ public class Optimizer_Main {
         capabilities.setCapability("model" , model);
         capabilities.setCapability("browserName" , browserName);
         capabilities.setCapability("location" , location);
-
+        capabilities.setCapability("platformVersion" , platformVersion);
+        capabilities.setCapability("browserVersion" , browserVersion);
+        
         driver = new RemoteWebDriver(new URL("https://" + PERFECTO_HOST + "/nexperience/perfectomobile/wd/hub") , capabilities);
         driver.manage().timeouts().implicitlyWait(15 , TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
@@ -85,20 +88,28 @@ public class Optimizer_Main {
             driver.get(url);
 //            open the geography dialog
             driver.findElementByXPath(OptimizerPageObject.selectCountry).click();
+            String platform = (String) driver.getCapabilities().getCapability("platformName").toString();
+            System.out.println(platform);
+            if(!platform.equalsIgnoreCase("Windows")){
             reportiumClient.testStep("Validate text point"); //TEST STEP - Validate text appear.
             switchToContext(driver, "VISUAL");
             driver.findElementByLinkText("Select Locations");
             switchToContext(driver, "WEBVIEW");
+            }
             reportiumClient.testStep("Select country"); //TEST STEP - select country
             selectCountry("Germany");
 //            close dialog
             driver.findElement(By.xpath(OptimizerPageObject.closeButton)).click();
 //            check the country that was selected appears in main page
             isCountryDisplayed("Germany");
+//            String platform = (String) driver.getCapabilities().getCapability("platformName").toString();
+//            System.out.println(platform);
+            if(!platform.equalsIgnoreCase("Windows")){
             reportiumClient.testStep("Validate text point-Germany");  
             switchToContext(driver, "VISUAL");
             driver.findElementByLinkText("Germany");
             switchToContext(driver, "WEBVIEW");
+            }
             reportiumClient.testStep("Select device type"); //select device type
             SelectDeviceType("Tablet");
             reportiumClient.testStep("Select device OS"); //select device OS
@@ -118,6 +129,8 @@ public class Optimizer_Main {
             reportiumClient.testStep("Test Coverage Optimizer full report page"); //new page opened with table
             String TableTitle = driver.findElement(By.xpath(OptimizerPageObject.FullResultPage)).getText();
             Assert.assertEquals(TableTitle, "TEST COVERAGE OPTIMIZER");
+          
+          
           
            
             
@@ -188,8 +201,14 @@ public class Optimizer_Main {
 		WebElement selectDevice = container.findElement(By.xpath(".//*[@class='select2-selection__placeholder']"));
 		selectDevice.click();
 		WebElement insertDevice = container.findElement(By.xpath("//*[text()='Select an option...']"));
-		insertDevice.sendKeys(device);
-	
+		  String platform = (String) driver.getCapabilities().getCapability("platformName").toString();
+		  if(!platform.equalsIgnoreCase("Windows")){
+			  insertDevice.sendKeys(device);
+		  }
+		  else{
+			 
+			  driver.getKeyboard().sendKeys("6S");
+		  }
 
 	}
 	
