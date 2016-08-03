@@ -77,10 +77,10 @@ public class Optimizer_Main {
         	System.err.println(Thread.currentThread().getId());
         	System.out.println("-----------------------------------------");
             //START TEST
-        	Map params = new HashMap<>();         
-        	params.put("property", "operabilityRatingScore");        
-        	String properties = (String) driver.executeScript("mobile:handset:info", params);
-        	System.out.println(properties);
+//        	Map params = new HashMap<>();    
+//           	params.put("property", "operabilityRatingScore");        
+//        	String properties = (String) driver.executeScript("mobile:handset:info", params);
+//        	System.out.println(properties);
         	String device = driver.getCapabilities().getCapability("platformName").toString();
             reportiumClient.testStart("Optimizer" , new TestContext("Some tag" , "Optimizer-"+ device)); //Add tags by your choice. 
             reportiumClient.testStep("Navigate to Beat-Optimizer site"); //TEST STEP - Open site and navigate.
