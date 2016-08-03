@@ -38,6 +38,7 @@ public class Optimizer_Main {
     String PERFECTO_HOST        = System.getProperty("np.testHost", "branchtest.perfectomobile.com");
     String PERFECTO_USER        = System.getProperty("np.testUsername", "test_automation@gmail.com");
     String PERFECTO_PASSWORD    = System.getProperty("np.testPassword", "Test_automation");
+    
     private String url = "http://optimizer-beat-test.perfectomobile.com/";
     //TODO: Insert your device capabilities at testng.XML file.
     @Parameters({"platformName" , "model" , "browserName" , "location","platformVersion","browserVersion"})
@@ -53,7 +54,7 @@ public class Optimizer_Main {
         capabilities.setCapability("location" , location);
         capabilities.setCapability("platformVersion" , platformVersion);
         capabilities.setCapability("browserVersion" , browserVersion);
-        
+        capabilities.setCapability("operabilityRatingScore", 100);
         driver = new RemoteWebDriver(new URL("https://" + PERFECTO_HOST + "/nexperience/perfectomobile/wd/hub") , capabilities);
         driver.manage().timeouts().implicitlyWait(15 , TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
@@ -69,17 +70,21 @@ public class Optimizer_Main {
     //Control the number of times each one of the tests runs.
     //Each times generates a new report for each test.
     //TODO: set the number of times to run the test
-    @Test
+    @Test (invocationCount = 5, successPercentage = 20)
        public void test(){
         try{
         	System.out.println("-----------------------------------------");
         	System.err.println(Thread.currentThread().getId());
         	System.out.println("-----------------------------------------");
             //START TEST
+        	Map params = new HashMap<>();         
+        	params.put("property", "operabilityRatingScore");        
+        	String properties = (String) driver.executeScript("mobile:handset:info", params);
+        	System.out.println(properties);
         	String device = driver.getCapabilities().getCapability("platformName").toString();
             reportiumClient.testStart("Optimizer" , new TestContext("Some tag" , "Optimizer-"+ device)); //Add tags by your choice. 
             reportiumClient.testStep("Navigate to Beat-Optimizer site"); //TEST STEP - Open site and navigate.
-         
+      
             driver.get(url);
             Cookie cookie = new Cookie("PM_MARKETO","123");
             driver.manage().addCookie(cookie );
