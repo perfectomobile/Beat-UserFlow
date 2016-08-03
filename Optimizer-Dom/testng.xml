@@ -14,7 +14,7 @@
         </classes>
     </test>
 
-    <!--test name="Test iOS">
+    <test name="Test iOS">
         <parameter name="platformName" value="iOS" />
         <parameter name="model" value= "" />
         <parameter name="browserName" value="mobileOS" />
@@ -35,6 +35,6 @@
 		<classes>
 			<class name="com.perfecto.beat.Optimizer_Main" />
 		</classes>
-	</test--> 
+	</test> 
     
 </suite>
