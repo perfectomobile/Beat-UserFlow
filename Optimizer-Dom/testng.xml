@@ -6,7 +6,7 @@
         <parameter name="platformName" value="Android" />
         <parameter name="model" value= "" />
         <parameter name="browserName" value="mobileOS" />
-        <parameter name="location" value="" />
+        <parameter name="location" value="NA-US-BOS-BranchTest" />
         <parameter name="platformVersion" value="" />
         <parameter name="browserVersion" value="" />
         <classes>
@@ -18,9 +18,10 @@
         <parameter name="platformName" value="iOS" />
         <parameter name="model" value= "" />
         <parameter name="browserName" value="mobileOS" />
-        <parameter name="location" value="" />
+        <parameter name="location" value="NA-US-BOS-BranchTest" />
         <parameter name="platformVersion" value="" />
         <parameter name="browserVersion" value="" />
+        
         <classes>
             <class name="com.perfecto.beat.Optimizer_Main" />
         </classes>
