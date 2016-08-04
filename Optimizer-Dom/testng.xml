@@ -19,7 +19,7 @@
         <parameter name="model" value= "" />
         <parameter name="browserName" value="mobileOS" />
         <parameter name="location" value="NA-US-BOS-BranchTest" />
-        <parameter name="platformVersion" value="" />
+        <parameter name="platformVersion" value="9.3.1" />
         <parameter name="browserVersion" value="" />
         
         <classes>
