@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="tests">
+	
+	<test name="Test WebMachine">
+		<parameter name="platformName" value="Windows" />
+		<parameter name="platformVersion" value="8.1" />
+		<parameter name="browserName" value="Chrome" />
+		<parameter name="browserVersion" value="51" />
+		<parameter name="screenResolution" value="1366x768" />
+		<parameter name="deviceName" value="" />
+		<parameter name="persona" value="" />
+		<!--parameter name="context" value="" /-->
+		<classes>
+			<class name="com.perfecto.testing.WebScenarioParallel" />
+		</classes>
+	</test>
+	
+	<test name="Test iPhone6S">
+		<parameter name="platformName" value="iOS" />
+		<parameter name="platformVersion" value="" />
+		<parameter name="browserName" value="mobileOS" />
+		<parameter name="browserVersion" value="" />
+		<parameter name="screenResolution" value="" />
+		<parameter name="context" value="NATIVE_APP" />
+		<parameter name="deviceName" value="" />
+		<parameter name="persona" value="Georgia" />
+		<classes>
+			<class name="com.perfecto.testing.WebScenarioParallel" />
+		</classes>
+	</test>
+	
+	<test name="Test Galaxy S7">
+		<parameter name="platformName" value="Android" />
+		<parameter name="platformVersion" value="" />
+		<parameter name="browserName" value="mobileOS" />
+		<parameter name="browserVersion" value="" />
+		<parameter name="screenResolution" value="" />
+		<parameter name="context" value="NATIVE_APP" />
+		<parameter name="deviceName" value="" />
+		<parameter name="persona" value="Sara" />
+		<classes>
+			<class name="com.perfecto.testing.WebScenarioParallel" />
+		</classes>
+	</test>
+</suite>
