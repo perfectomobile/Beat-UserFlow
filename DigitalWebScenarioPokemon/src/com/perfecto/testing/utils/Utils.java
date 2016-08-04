@@ -12,9 +12,10 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class Utils {
 	public static RemoteWebDriver webdriver;
 	// Set cloud host and credentials values at runtime via Command Line
-	public static String PERFECTO_HOST = "branchtest.perfectomobile.com";
-	public static String PERFECTO_USER = "admint";
-	public static String PERFECTO_PASSWORD = "admin";
+
+	public static String PERFECTO_HOST        = System.getProperty("np.testHost", "branchtest.perfectomobile.com");
+	public static String PERFECTO_USER        = System.getProperty("np.testUsername", "test_automation@gmail.com");
+	public static String PERFECTO_PASSWORD    = System.getProperty("np.testPassword", "Test_automation");
 	public static String CLOUD_URL = "https://" + PERFECTO_HOST + "/nexperience/perfectomobile/wd/hub";
 
 
