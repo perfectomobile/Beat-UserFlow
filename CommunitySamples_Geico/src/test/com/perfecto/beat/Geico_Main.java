@@ -45,6 +45,8 @@ public class Geico_Main {
     String PERFECTO_HOST        = System.getProperty("np.testHost", "branchtest.perfectomobile.com");
     String PERFECTO_USER        = System.getProperty("np.testUsername", "test_automation@gmail.com");
     String PERFECTO_PASSWORD    = System.getProperty("np.testPassword", "Test_automation");
+
+
     
     private String url = "https://www.geico.com";
     //TODO: Insert your device capabilities at testng.XML file.
