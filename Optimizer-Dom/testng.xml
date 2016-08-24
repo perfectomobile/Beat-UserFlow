@@ -19,14 +19,14 @@
         <parameter name="model" value= "" />
         <parameter name="browserName" value="mobileOS" />
         <parameter name="location" value="NA-US-BOS-BranchTest" />
-        <parameter name="platformVersion" value="9.3.1" />
+        <parameter name="platformVersion" value="9.3*" />
         <parameter name="browserVersion" value="" />
         
         <classes>
             <class name="com.perfecto.beat.Optimizer_Main" />
         </classes>
     </test>
-    	<test name="Test Windows 7 chrome 50">
+    	<test name="Test Windows 7 chrome 48">
 		<parameter name="platformName" value="Windows" />
 		<parameter name="platformVersion" value="7" />
 		<parameter name="browserName" value="Chrome" />
