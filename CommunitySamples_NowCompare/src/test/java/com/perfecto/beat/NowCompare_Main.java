@@ -85,7 +85,7 @@ public class NowCompare_Main {
     //Control the number of times each one of the tests runs.
     //Each times generates a new report for each test.
     //TODO: set the number of times to run the test
-    @Test (invocationCount = 1, successPercentage = 20)
+    @Test (invocationCount = 5, successPercentage = 20)
     public void test(){
         try{
             System.out.println("-----------------------------------------");
@@ -142,7 +142,6 @@ public class NowCompare_Main {
             reportiumClient.testStep("Find Health Insurance element"); //TEST STEP - Find Health Insurance element
             element = driver.findElementByXPath(NowComparePageObjects.healthInsurance);
             element.click();
-            System.out.println("Clicked +Health");
 
             reportiumClient.testStep("Verify visibility of Health insurance page"); //TEST STEP - Verify visibility of Health insurance page
             try {
