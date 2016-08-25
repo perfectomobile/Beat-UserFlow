@@ -1,4 +1,5 @@
-package com.perfecto.beat;
+package test.java.com.perfecto.beat;
+
 import com.perfecto.reportium.client.ReportiumClient;
 import com.perfecto.reportium.client.ReportiumClientFactory;
 import com.perfecto.reportium.model.PerfectoExecutionContext;
@@ -108,14 +109,14 @@ public class Optimizer_Main {
             driver.findElement(By.xpath(OptimizerPageObject.closeButton)).click();
 //            check the country that was selected appears in main page
             isCountryDisplayed("Germany");
-            if(!platform.equalsIgnoreCase("Windows")){
-            reportiumClient.testStep("Validate text point-Germany");  
-            switchToContext(driver, "VISUAL");
-            driver.findElementByLinkText("Germany");
-            switchToContext(driver, "WEBVIEW");
-            }else {
-            	visualOnWeb(driver, "Germany");
-            }
+//            if(!platform.equalsIgnoreCase("Windows")){
+//            reportiumClient.testStep("Validate text point-Germany");
+//            switchToContext(driver, "VISUAL");
+//            driver.findElementByLinkText("Germany");
+//            switchToContext(driver, "WEBVIEW");
+//            }else {
+//            	visualOnWeb(driver, "Germany");
+//            }
             reportiumClient.testStep("Select device type"); //select device type
             SelectDeviceType("Tablet");
             reportiumClient.testStep("Select device OS"); //select device OS
@@ -135,12 +136,7 @@ public class Optimizer_Main {
             reportiumClient.testStep("Test Coverage Optimizer full report page"); //new page opened with table
             String TableTitle = driver.findElement(By.xpath(OptimizerPageObject.FullResultPage)).getText();
             Assert.assertEquals(TableTitle, "TEST COVERAGE OPTIMIZER");
-          
-          
-          
-           
-            
-            
+
 //            //END TEST - Success
             reportiumClient.testStop(TestResultFactory.createSuccess());
 
@@ -163,6 +159,7 @@ public class Optimizer_Main {
          	params.clear();
 			params.put("content", string);
 			params.put("timeout", "30");
+//			params.put("source", "native");
 			driver.executeScript("mobile:text:find", params);
     }
     public void selectCountry(String location){
@@ -256,16 +253,16 @@ public class Optimizer_Main {
 
 	 }
 
- public List<String> HeroesList(){
-	 List<WebElement> heroes = driver.findElements(By.xpath(OptimizerPageObject.Heroes));
+ /*public List<String> HeroesList(){
+	 List<WebElement> heroes = driver.findElements(By.xpath(url.Heroes));
 		List<String> heroesList = new ArrayList<String>();
 		for(int i=1; i < (heroes.size()+1); i++) {
-		  String deviceName = driver.findElementByXPath(".//*[@id='pmHeroes']//*[@class='pm-hero ng-scope']/*[text()='"+i+"']/following-sibling::label").getText();
+		  String deviceName = driver.findElementByXPath("./*//*[@id='pmHeroes']/*//*[@class='pm-hero ng-scope']*//*[text()='"+i+"']/following-sibling::label").getText();
 		    heroesList.add(deviceName);
 		    System.out.println(deviceName);
 			}
 		return heroesList;
-	}
+	}*/
 // 
 // public static List<String> FullReportlist(){
 //		List<String> fullReportlist = new ArrayList<String>();

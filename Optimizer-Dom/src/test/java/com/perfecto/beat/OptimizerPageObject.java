@@ -1,4 +1,4 @@
-package com.perfecto.beat;
+package test.java.com.perfecto.beat;
 
 
 public class OptimizerPageObject {
