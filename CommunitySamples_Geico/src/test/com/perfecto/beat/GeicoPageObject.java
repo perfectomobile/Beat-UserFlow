@@ -2,10 +2,15 @@ package com.perfecto.beat;
 
 
 public class GeicoPageObject {
+//Auto Icon
+final static String autoIcon = "//*[@id=\"selected_product\"]//*[@class=\"icon icon-vehicle\"]";
 //select Insurance Type
 final static String insuranceType = "//*[@id=\"insurancetype\"]";
 //Motorcycle option
 final static String MotorcycleOption = "//*[@id=\"optionMotorcycle\"]";
+final static String MotorcycleOption2 = "//*[@class=\"icon icon-motorcycle\"]";
+//Motorcycle icon
+final static String MotorcycleIcon = "//*[@id=\"selected_product\"]//*[@class=\"icon icon-motorcycle\"]";
 // ZIP Code
 final static String ZIP = "//*[@id=\"zip\"]";
 //Submit button - START QUOTE

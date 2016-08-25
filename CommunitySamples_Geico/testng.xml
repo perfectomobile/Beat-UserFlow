@@ -21,21 +21,23 @@
         <parameter name="location" value="NA-US-BOS-BranchTest" />
         <parameter name="platformVersion" value="9.3.1" />
         <parameter name="browserVersion" value="" />
-        
+
         <classes>
             <class name="com.perfecto.beat.Geico_Main" />
         </classes>
     </test>
-    	<test name="Test Windows 7 chrome 50">
-		<parameter name="platformName" value="Windows" />
-		<parameter name="platformVersion" value="7" />
-		<parameter name="browserName" value="Chrome" />
-		<parameter name="browserVersion" value="48" />
-		 <parameter name="location" value="" />
-		   <parameter name="model" value= "" />
-		<classes>
-			<class name="com.perfecto.beat.Geico_Main" />
-		</classes>
-	</test> 
-    
+
+    <test name="Test Windows 7 chrome 50">
+        <parameter name="platformName" value="Windows" />
+        <parameter name="platformVersion" value="7" />
+        <parameter name="browserName" value="Chrome" />
+        <parameter name="browserVersion" value="48" />
+        <parameter name="location" value="" />
+        <parameter name="model" value= "" />
+        <classes>
+            <class name="com.perfecto.beat.Geico_Main" />
+        </classes>
+    </test>
+
+
 </suite>

@@ -48,11 +48,11 @@ public class Geico_Main {
 
 
     
-    private String url = "https://www.geico.com";
+    private String url = "http://geico.com";
     //TODO: Insert your device capabilities at testng.XML file.
     @Parameters({"platformName" , "model" , "browserName" , "location","platformVersion","browserVersion"})
     @BeforeTest
-    public void beforMethod(String platformName, String model, String browserName, String location, @Optional String platformVersion, @Optional String browserVersion) throws MalformedURLException {
+    public void beforeMethod(String platformName, String model, String browserName, String location, @Optional String platformVersion, @Optional String browserVersion) throws MalformedURLException {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("user" , PERFECTO_USER);
@@ -65,8 +65,8 @@ public class Geico_Main {
         capabilities.setCapability("browserVersion" , browserVersion);
         capabilities.setCapability("operabilityRatingScore", 100);
         driver = new RemoteWebDriver(new URL("https://" + PERFECTO_HOST + "/nexperience/perfectomobile/wd/hub") , capabilities);
-        driver.manage().timeouts().implicitlyWait(15 , TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         //Create Reportium client.
         reportiumClient = new ReportiumClientFactory().createPerfectoReportiumClient(
                         new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
@@ -85,38 +85,37 @@ public class Geico_Main {
         	System.out.println("-----------------------------------------");
         	System.err.println(Thread.currentThread().getId());
         	System.out.println("-----------------------------------------");
+
             //START TEST
-//        	Map params = new HashMap<>();    
-//           	params.put("property", "operabilityRatingScore");        
-//        	String properties = (String) driver.executeScript("mobile:handset:info", params);
-//        	System.out.println(properties);
+//
         	String device = driver.getCapabilities().getCapability("platformName").toString();
             reportiumClient.testStart("Geico" , new TestContext("Some tag" , "Geico-"+ device)); //Add tags by your choice. 
             reportiumClient.testStep("Navigate to Geico site"); //TEST STEP - Open site and navigate.
       
             driver.get(url);
-            Cookie cookie = new Cookie("PM_Geico","123");
-            driver.manage().addCookie(cookie );
-            driver.get(url);
-            
+
         	// Maximize browser window on desktop
             String platform = (String) driver.getCapabilities().getCapability("platformName").toString();
             System.out.println(platform);
-            if(!platform.equalsIgnoreCase("Windows")){
-                driver.manage().window().maximize();
+            if(platform.equalsIgnoreCase("Windows")){
+               driver.manage().window().maximize();
             }
-	
-            		
+
             // Enter form data
             reportiumClient.testStep("Find Insurance Type"); //TEST STEP - find insurance type
- 			Select type = new Select(driver.findElementByXPath(GeicoPageObject.insuranceType));
+            Select type = new Select(driver.findElement(By.id("insurancetype")));
+            if(platform.equalsIgnoreCase("Windows")){
+                driver.findElementByXPath(GeicoPageObject.MotorcycleOption2).click();
+            } else {
+                type.selectByVisibleText("Motorcycle");
+            }
 
- 			reportiumClient.testStep("Select Motorcycle"); //TEST STEP - select motorcycle
- 			type.selectByVisibleText("Motorcycle");
- 			
- 			reportiumClient.testStep("Find ZIP, click Submit"); //TEST STEP - find ZIP
- 			driver.findElementByXPath(GeicoPageObject.ZIP).sendKeys("01434");
- 			driver.findElementByXPath(GeicoPageObject.startQuote).click();
+            reportiumClient.testStep("Find ZIP, click Submit"); //TEST STEP - find ZIP
+            driver.findElementByXPath(GeicoPageObject.ZIP).sendKeys("01434");
+            driver.findElement(By.id("submitButton")).click();
+
+            isElementVisible(GeicoPageObject.autoInsurance);
+            System.out.println(url);
 
  			reportiumClient.testStep("Set Radio buttons, 1-Yes; 2-No. Set No"); //TEST STEP - Set Radio buttons, 1-Yes; 2-No
  			driver.findElementByXPath(GeicoPageObject.autoInsurance).click();
@@ -140,17 +139,16 @@ public class Geico_Main {
  			hasCycle.selectByIndex(1);
 
  		 	reportiumClient.testStep("Select current company"); //TEST STEP - Select current company
- 			Select current = new Select(driver.findElementByXPath(GeicoPageObject.currentInsurance));
- 			current.selectByVisibleText("Other");
- 			driver.findElementByXPath(GeicoPageObject.submitNext).click();
- 			
+            Select current = new Select(driver.findElement(By.id("currentInsurance")));
+            current.selectByVisibleText("Other");
+            driver.findElement(By.id("btnSubmit")).click();
+
  			reportiumClient.testStep("Is ElementVisible - Location Header"); //TEST STEP - Is ElementVisible - Location Header
  			WebElement  locationHeader = driver.findElementByXPath(GeicoPageObject.locationHeader);
  			isElementVisible(GeicoPageObject.locationHeader);
  			Assert.assertTrue(locationHeader.getText().equals("Motorcycle Details"));
- 			System.out.println("Done geico.com\n");
+ 			//System.out.println("Done geico.com\n");
 
-          
            //END TEST - Success
             reportiumClient.testStop(TestResultFactory.createSuccess());
 
@@ -185,10 +183,9 @@ public class Geico_Main {
     public void afterMethod(){
   	
         try{
-            driver.manage().deleteAllCookies(); //Removes cookies after test.
             driver.close();
             String platform = (String) driver.getCapabilities().getCapability("platformName").toString();
-            if (!platform.equalsIgnoreCase("Windows")){
+            if (platform.equalsIgnoreCase("Windows")){
             Map<String, Object> params = new HashMap<String, Object>();
 			driver.executeScript("mobile:execution:close", params);
 			}
