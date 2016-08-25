@@ -87,9 +87,9 @@ public class Geico_Main {
         	System.out.println("-----------------------------------------");
 
             //START TEST
-//
+
         	String device = driver.getCapabilities().getCapability("platformName").toString();
-            reportiumClient.testStart("Geico" , new TestContext("Some tag" , "Geico-"+ device)); //Add tags by your choice. 
+            reportiumClient.testStart("Geico" , new TestContext("Some tag" , "Geico")); //Add tags by your choice.
             reportiumClient.testStep("Navigate to Geico site"); //TEST STEP - Open site and navigate.
       
             driver.get(url);
