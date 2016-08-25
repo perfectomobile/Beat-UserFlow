@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="tests">
 
-    <test name="Test Android">
+    <!-- test name="Test Android">
         <parameter name="platformName" value="Android" />
         <parameter name="model" value= "" />
         <parameter name="browserName" value="mobileOS" />
@@ -12,21 +12,23 @@
         <classes>
             <class name="com.perfecto.beat.Optimizer_Main" />
         </classes>
-    </test>
+    </test-->
 
     <test name="Test iOS">
         <parameter name="platformName" value="iOS" />
         <parameter name="model" value= "" />
         <parameter name="browserName" value="mobileOS" />
         <parameter name="location" value="NA-US-BOS-BranchTest" />
-        <parameter name="platformVersion" value="9.3*" />
+        <parameter name="platformVersion" value="9.3.*" />
         <parameter name="browserVersion" value="" />
         
         <classes>
-            <class name="com.perfecto.beat.Optimizer_Main" />
+            <class name="test.java.com.perfecto.beat.Optimizer_Main" />
+            <class name="test.java.com.perfecto.beat.OptimizerPageObject"/>
+
         </classes>
     </test>
-    	<test name="Test Windows 7 chrome 48">
+    	<!--test name="Test Windows 7 chrome 48">
 		<parameter name="platformName" value="Windows" />
 		<parameter name="platformVersion" value="7" />
 		<parameter name="browserName" value="Chrome" />
@@ -36,6 +38,6 @@
 		<classes>
 			<class name="com.perfecto.beat.Optimizer_Main" />
 		</classes>
-	</test> 
+	</test--> 
     
 </suite>
