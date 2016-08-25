@@ -15,8 +15,9 @@ final static String MotorcycleIcon = "//*[@id=\"selected_product\"]//*[@class=\"
 final static String ZIP = "//*[@id=\"zip\"]";
 //Submit button - START QUOTE
 final static String startQuote	= "//*[text()=\"START QUOTE\"]";
+final static String submitButton	= "//*[@id=\"submitButton\"]";
 //Set Radio button - Do you currently have GEICO auto insurance? No
-final static String autoInsurance = "//span[text()=\"No\"]";
+final static String autoInsuranceNo = "//*[@class=\"row control-item\"]//*[@class=\"col-md-12\"]/label[2]";
 //Go to Start Quote page, fill in details
 final static String firstName= "//*[@id=\"firstName\"]";
 final static String lastName = "//*[@id=\"lastName\"]";

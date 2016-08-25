@@ -101,27 +101,30 @@ public class Geico_Main {
                driver.manage().window().maximize();
             }
 
-            // Enter form data
-            reportiumClient.testStep("Find Insurance Type"); //TEST STEP - find insurance type
-            Select type = new Select(driver.findElement(By.id("insurancetype")));
-            if(platform.equalsIgnoreCase("Windows")){
-                driver.findElementByXPath(GeicoPageObject.MotorcycleOption2).click();
-            } else {
-                type.selectByVisibleText("Motorcycle");
-            }
+          //  // Enter form data
+          //  reportiumClient.testStep("Find Insurance Type"); //TEST STEP - find insurance type
+          //  Select type = new Select(driver.findElement(By.id("insurancetype")));
+          //  if(platform.equalsIgnoreCase("Windows")){
+          //      driver.findElementByXPath(GeicoPageObject.MotorcycleOption2).click();
+          //  } else {
+          //      type.selectByVisibleText("Motorcycle");
+          //  }
+
+            driver.findElementByXPath(GeicoPageObject.MotorcycleOption2).click();
 
             reportiumClient.testStep("Find ZIP, click Submit"); //TEST STEP - find ZIP
             driver.findElementByXPath(GeicoPageObject.ZIP).sendKeys("01434");
-            driver.findElement(By.id("submitButton")).click();
+            driver.findElementByXPath(GeicoPageObject.submitButton).click();
 
-            isElementVisible(GeicoPageObject.autoInsurance);
-            System.out.println(url);
+           try {
+                    driver.findElementByXPath(GeicoPageObject.autoInsuranceNo).click();
+            } catch (Exception e) {
+             System.out.println("Could not find element");
+            }
 
- 			reportiumClient.testStep("Set Radio buttons, 1-Yes; 2-No. Set No"); //TEST STEP - Set Radio buttons, 1-Yes; 2-No
- 			driver.findElementByXPath(GeicoPageObject.autoInsurance).click();
- 			
+
  			reportiumClient.testStep("Fill in First name, Last Name and Street"); //TEST STEP - Fill in First name, Last Name and Street
- 			driver.findElementByXPath(GeicoPageObject.firstName).sendKeys("MyFirstName");
+      		driver.findElementByXPath(GeicoPageObject.firstName).sendKeys("MyFirstName");
  			driver.findElementByXPath(GeicoPageObject.lastName).sendKeys("MyFamilyName");
  			driver.findElementByXPath(GeicoPageObject.street).sendKeys("My Address");
 
