@@ -44,7 +44,7 @@ public class Optimizer_Main {
     //TODO: Insert your device capabilities at testng.XML file.
     @Parameters({"platformName" , "model" , "browserName" , "location","platformVersion","browserVersion"})
     @BeforeTest
-    public void beforMethod(String platformName, String model, String browserName, String location, @Optional String platformVersion, @Optional String browserVersion) throws MalformedURLException {
+    public void beforeMethod(String platformName, String model, String browserName, String location, @Optional String platformVersion, @Optional String browserVersion) throws MalformedURLException {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("user" , PERFECTO_USER);

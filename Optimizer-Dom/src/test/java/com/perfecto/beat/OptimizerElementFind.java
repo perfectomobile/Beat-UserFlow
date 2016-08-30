@@ -45,6 +45,7 @@ public class OptimizerElementFind {
     //TODO: Insert your device capabilities at testng.XML file.
     @Parameters({"platformName" , "model" , "browserName" , "location","platformVersion","browserVersion"})
     @BeforeTest // start web driver
+
     public void beforeMethod(String platformName, String model, String browserName, @Optional String location, @Optional String platformVersion, @Optional String browserVersion) throws MalformedURLException {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
