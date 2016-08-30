@@ -37,9 +37,9 @@ public class OptimizerElementFind {
     RemoteWebDriver  driver;
     ReportiumClient reportiumClient;
 
-    String PERFECTO_HOST        = System.getProperty("np.testHost", "branchtest");
-    String PERFECTO_USER        = System.getProperty("np.testUsername", "ronma@perfectomobile.com");
-    String PERFECTO_PASSWORD    = System.getProperty("np.testPassword", "Welcome2306");
+    String PERFECTO_HOST        = System.getProperty("np.testHost", "branchtest.perfectomobile.com");
+    String PERFECTO_USER        = System.getProperty("np.testUsername", "test_automation@gmail.com");
+    String PERFECTO_PASSWORD    = System.getProperty("np.testPassword", "Test_automation");
 
     private String url = "http://optimizer-beat-test.perfectomobile.com/";
     //TODO: Insert your device capabilities at testng.XML file.

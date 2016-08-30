@@ -11,7 +11,7 @@
         <parameter name="browserVersion" value="" />
         <classes>
             <class name="test.java.com.perfecto.beat.Optimizer_Main" />
-            <!--class name="test.java.com.perfecto.beat.OptimizerElementFind"/-->
+            <class name="test.java.com.perfecto.beat.OptimizerElementFind"/>
         </classes>
     </test>
 
@@ -25,7 +25,7 @@
         
         <classes>
             <class name="test.java.com.perfecto.beat.Optimizer_Main" />
-            <!--class name="test.java.com.perfecto.beat.OptimizerElementFind"/-->
+            <class name="test.java.com.perfecto.beat.OptimizerElementFind"/>
         </classes>
     </test>
     <test name="Test Windows 7 chrome 48">
@@ -37,7 +37,7 @@
 		   <parameter name="model" value= "" />
 		<classes>
             <class name="test.java.com.perfecto.beat.Optimizer_Main" />
-            <!--class name="test.java.com.perfecto.beat.OptimizerElementFind"/-->
+            <class name="test.java.com.perfecto.beat.OptimizerElementFind"/>
 		</classes>
 	</test>
     
