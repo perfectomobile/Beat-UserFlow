@@ -44,9 +44,8 @@ public class OptimizerElementFind {
     private String url = "http://optimizer-beat-test.perfectomobile.com/";
     //TODO: Insert your device capabilities at testng.XML file.
     @Parameters({"platformName" , "model" , "browserName" , "location","platformVersion","browserVersion"})
-    @BeforeTest // start web driver
-
-    public void beforeMethod(String platformName, String model, String browserName, @Optional String location, @Optional String platformVersion, @Optional String browserVersion) throws MalformedURLException {
+    @BeforeTest
+    public void beforeMethod(String platformName, String model, String browserName, String location, @Optional String platformVersion, @Optional String browserVersion) throws MalformedURLException {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("user" , PERFECTO_USER);
@@ -58,12 +57,12 @@ public class OptimizerElementFind {
         capabilities.setCapability("platformVersion" , platformVersion);
         capabilities.setCapability("browserVersion" , browserVersion);
         capabilities.setCapability("operabilityRatingScore", 100);
-        driver = new RemoteWebDriver(new URL("https://" + PERFECTO_HOST + ".perfectomobile.com/nexperience/perfectomobile/wd/hub") , capabilities);
+        driver = new RemoteWebDriver(new URL("https://" + PERFECTO_HOST + "/nexperience/perfectomobile/wd/hub") , capabilities);
         driver.manage().timeouts().implicitlyWait(15 , TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         //Create Reportium client.
         reportiumClient = new ReportiumClientFactory().createPerfectoReportiumClient(
-                        new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
+                new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
                         .withProject(new Project("Sample Selenium-Reportium" , "1.0"))
                         .withContextTags("Regression") //Optional
                         .withWebDriver(driver) //Optional
