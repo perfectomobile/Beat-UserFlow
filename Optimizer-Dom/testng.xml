@@ -12,6 +12,8 @@
         <classes>
             <class name="test.java.com.perfecto.beat.Optimizer_Main" />
             <class name="test.java.com.perfecto.beat.OptimizerElementFind"/>
+            <!--class name="test.java.com.perfecto.customerTests.Geico_Main"/>
+            <class name="test.java.com.perfecto.customerTests.NowCompare_Main"/-->
         </classes>
     </test>
 
@@ -26,6 +28,8 @@
         <classes>
             <class name="test.java.com.perfecto.beat.Optimizer_Main" />
             <class name="test.java.com.perfecto.beat.OptimizerElementFind"/>
+            <!--class name="test.java.com.perfecto.customerTests.Geico_Main"/>
+            <class name="test.java.com.perfecto.customerTests.NowCompare_Main"/-->
         </classes>
     </test>
     <test name="Test Windows 7 chrome 48">
@@ -38,6 +42,8 @@
 		<classes>
             <class name="test.java.com.perfecto.beat.Optimizer_Main" />
             <class name="test.java.com.perfecto.beat.OptimizerElementFind"/>
+            <!--class name="test.java.com.perfecto.customerTests.Geico_Main"/>
+            <class name="test.java.com.perfecto.customerTests.NowCompare_Main"/-->
 		</classes>
 	</test>
     
